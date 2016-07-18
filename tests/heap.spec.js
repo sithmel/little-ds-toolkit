@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Heap = require('../heap');
+var Heap = require('../lib/heap');
 
 
 describe('heap', function () {
@@ -168,9 +168,5 @@ describe('heap', function () {
       assert.equal(res, 7);
       assert.deepEqual(h.data, [2, 4, 3, 8, 5]);
     });
-
   });
-
-
-
 });

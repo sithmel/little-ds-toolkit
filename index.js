@@ -1,9 +1,9 @@
-var ramCache = require('./ram-cache');
-var cache = require('./cache');
-var keyGetter = require('memoize-cache-utils/key-getter');
+var LRUCache = require('./lib/lru-cache');
+var Heap = require('./lib/heap');
+var UnionFind = require('./lib/union-find');
 
 module.exports = {
-  ramCache: ramCache,
-  cache: cache,
-  keyGetter: keyGetter,
+  LRUCache: LRUCache,
+  Heap: Heap,
+  UnionFind: UnionFind,
 };

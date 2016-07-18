@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Cache = require('../utils/memory-cache');
+var Cache = require('../lib/lru-cache');
 
 describe('lru-cache', function () {
   describe('init', function () {

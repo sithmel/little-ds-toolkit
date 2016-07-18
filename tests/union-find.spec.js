@@ -1,8 +1,5 @@
-
-'use strict';
-
+var assert = require('chai').assert;
 var UnionFind = require('../lib/union-find');
-
 
 describe('union-find', function () {
   var a, b, c, d;
