@@ -20,15 +20,23 @@ Creating an instance:
 ```js
 var heap = new Heap();
 ```
-The constructor function can take as argument the comparator used to internally sort the items:
+The constructor function can take as argument the comparator used to internally sort the items (just like Array.prototype.sort):
 ```js
-var heap = new Heap(function (a, b) { return a < b; });
+var heap = new Heap(function (a, b) {
+  if (a.value < b.value) {
+    return 1;
+  } esle if (a.value > b.value) {
+    return -1;
+  } else {
+    return 0;
+  }
+});
 ```
 You can add items:
 ```js
 heap.push(item); // Θ(log n)
 ```
-and remove and get the minimum (or maximum, depending on the comparator)
+remove and get the minimum (or maximum, depending on the comparator)
 ```js
 var min = heap.pop(); // Θ(log n)
 ```
@@ -36,15 +44,29 @@ Peeking without removing it is even more efficient:
 ```js
 var min = heap.peek(); // Θ(1)
 ```
-You can also remove an arbitrary item ( O(logn) ):
+Searching across the data structure is not particularly efficient, it returns a valid index or -1 (not found):
 ```js
-heap.remove(item); // Θ(log n)
+heap.indexOf(item); // Θ(n)
 ```
-or
+You can also pass a function that should return true when the item is found:
 ```js
-heap.remove(function (item) { // Θ(log n)
-  return item === 5;
+heap.indexOf(function (item) { // Θ(n)
+  return item.prop === 5;
 });
+```
+Using the index you can get or remove an item:
+```js
+heap.getIndex(3); // Θ(1)
+
+heap.removeIndex(3); // Θ(log n)
+```
+removeIndex returns the item removed.
+
+The "remove" method is a short for indexOf + removeIndex.
+```js
+heap.remove(item); // Θ(n + log n)
+// is the same as:
+heap.removeIndex(heap.indexOf(item)); // Θ(n + log n)
 ```
 You can get the length of the heap with:
 ```js
@@ -69,11 +91,11 @@ var item = new UnionFind(value);
 ```
 It has only two methods. Union:
 ```js
-item.union(item2); // almost Θ(1) (grows as the inverse Ackerman function)
+item.union(item2); // almost Θ(1) (grows very slowly)
 ```
 and find:
 ```js
-item.find(); // almost Θ(1) (grows as the inverse Ackerman function)
+item.find(); // almost Θ(1) (grows very slowly)
 ```
 The find returns the element "leader". The important part is that 2 elements with the same leader belongs to the same group.
 
@@ -97,9 +119,9 @@ The options are:
 
 * maxSize: maximum size in byte
 * maxLen: maximum items
-* defaultTTL: default time to live. Older items are considered stale
+* defaultTTL: default time to live. Older items are considered stale and not returned
 
-It makes sense to use at either one of maxSize or maxLen, or it is not going to behave differently from a simple object.
+It makes sense to use either one of maxSize or maxLen, or it is not going to behave differently from a simple object.
 You can set an item:
 ```js
 cache.set(key, value, ttl); // the time to live is optional Θ(1)
@@ -109,15 +131,18 @@ and get an item:
 var value = cache.get(key); // Θ(1)
 ```
 If the item is not in the cache or stale, it'll return undefined.
-getStale will return a stale object:
+The "peek" method is not altering the LRU data structure while returning a value. It is also returning stale objects.
 ```js
-var value = cache.getStale(key); // Θ(1)
+var value = cache.peek(key); // Θ(1)
 ```
 You can remove an item from the cache using:
 ```js
 cache.del(key); // Θ(1)
 ```
+You can check if a value is in the cache using "has":
+```js
+cache.has(key); // Θ(1)
+```
+It returns a boolean.
 cache.len is an attribute containing the number of items.
 cache.size contains the used memory (in bytes). This is only used when you set a "maxSize".
-
- 
