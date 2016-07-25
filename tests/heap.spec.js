@@ -104,7 +104,13 @@ describe('heap', function () {
     }
 
     assert.deepEqual(out, sorted);
+  });
 
+  it('must heapsort (short syntax)', function () {
+    var out = [], i;
+    var heap = new Heap();
+    heap.pushAll(not_sorted);
+    assert.deepEqual(heap.popAll(), sorted);
   });
 
   it('must use comparator', function () {
@@ -175,4 +181,31 @@ describe('heap', function () {
       assert.deepEqual(h.data, [2, 4, 3, 8, 5]);
     });
   });
+
+  describe('pushall', function () {
+    it('must push an array', function () {
+      var h = new Heap();
+      h.pushAll([4, 3, 2, 1]);
+      assert.deepEqual(h.data, [1, 2, 3, 4]);
+    });
+  });
+
+  describe('onMove', function () {
+    it('must keep the positions updated', function () {
+      var positions = {};
+      var h = new Heap(undefined, function (item, index) {
+        positions[item] = index;
+      });
+      h.pushAll([4, 3, 2, 1]);
+      assert.deepEqual(h.data, [1, 2, 3, 4]);
+      assert.deepEqual(positions, {1: 0, 2: 1, 3: 2, 4: 3});
+      h.push(0);
+      assert.deepEqual(h.data, [0, 1, 3, 4, 2]);
+      assert.deepEqual(positions, {0: 0, 1: 1, 3: 2, 4: 3, 2: 4});
+      assert.equal(h.pop(), 0);
+      assert.deepEqual(h.data, [1, 2, 3, 4]);
+      assert.deepEqual(positions, {0: 0, 1: 0, 2: 1, 3: 2, 4: 3});
+    });
+  });
+
 });

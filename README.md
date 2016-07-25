@@ -6,7 +6,7 @@ This is a little collection of some useful data structures. The goal is not givi
 
 heap
 ====
-This data structure is particularly efficient when it comes to repetitively return the minimum (or maximum) item contained, while inserting items in a random order.
+This data structure is particularly efficient when it comes to repetitively return the minimum (or maximum, depending on the sorting) item contained, while inserting items in a random order.
 
 You can import it with:
 ```js
@@ -56,7 +56,7 @@ heap.indexOf(function (item) { // Θ(n)
 ```
 Using the index you can get or remove an item:
 ```js
-heap.getIndex(3); // Θ(1)
+heap.get(3); // Θ(1)
 
 heap.removeIndex(3); // Θ(log n)
 ```
@@ -72,6 +72,41 @@ You can get the length of the heap with:
 ```js
 heap.size(); // Θ(1)
 ```
+There "pushAll" and "popAll" methods are shortcuts to insert an array of items in the heap, or retrieving them. Combined together the can be used to build the heapsort sorting algorithm:
+```js
+var heap = new Heap();
+heap.pushAll(unsorted_array);
+heap.popAll(); // returns a sorted array
+```
+The "toArray" method returns the inner array representation (partially sorted).
+
+min-max-heap
+============
+This data structure implements the same features of the heap (with the same asymptotic running time), but it also allow to pop maximum values in the same way.
+It is implemented internally by 2 heaps, with the opposite comparator, pointing one another.
+You can create an instance with:
+```js
+var MinMaxHeap = require('little-ds-toolkit/lib/min-max-heap');
+```
+or
+```js
+var MinMaxHeap = require('little-ds-toolkit').MinMaxHeap;
+
+var heap = new MinMaxHeap(optionalComparator);
+```
+Here is a list of the methods:
+
+* push: push one item in the heap O(log n)
+* pushAll: push a list of items in the heap O(n)
+* popMin: pop the minimum item from the heap O(log n)
+* popMax: pop the maximum item from the heap O(log n)
+* peekMin: peek the minimum item from the heap O(1)
+* peekMax: peek the maximum item from the heap O(1)
+* popMinAll: pop all items from the heap O(n log n)
+* popMaxAll: pop all items from the heap in reversed order O(n log n)
+* size: returns the number of items stored O(1)
+* remove: remove an item from the heap O(n)
+* toArray: return a partially sorted array O(1)
 
 union-find
 ==========
