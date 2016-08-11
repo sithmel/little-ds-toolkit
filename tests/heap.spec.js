@@ -182,6 +182,39 @@ describe('heap', function () {
     });
   });
 
+  describe('replaceIndex', function () {
+    var h;
+
+    beforeEach(function () {
+      h = new Heap();
+      h.data = [2, 5, 3, 8, 7, 4];
+    });
+
+    it('must be able to replace the tail', function () {
+      var res = h.replaceIndex(5, 1);
+      assert.equal(res, 4);
+      assert.deepEqual(h.data, [1, 5, 2, 8, 7, 3]);
+    });
+
+    it('must be able to replace the root', function () {
+      var res = h.replaceIndex(0, 10);
+      assert.equal(res, 2);
+      assert.deepEqual(h.data, [3, 5, 4, 8, 7, 10]);
+    });
+
+    it('must be able to replace in the middle', function () {
+      var res = h.replaceIndex(2, 10);
+      assert.equal(res, 3);
+      assert.deepEqual(h.data, [2, 5, 4, 8, 7, 10]);
+    });
+
+    it('must be able to replace in the middle (2)', function () {
+      var res = h.replaceIndex(2, 0);
+      assert.equal(res, 3);
+      assert.deepEqual(h.data, [0, 5, 2, 8, 7, 4]);
+    });
+  });
+
   describe('pushall', function () {
     it('must push an array', function () {
       var h = new Heap();

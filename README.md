@@ -80,6 +80,25 @@ heap.popAll(); // returns a sorted array
 ```
 The "toArray" method returns the inner array representation (partially sorted).
 
+Advanced features: updating item order and removing items
+---------------------------------------------------------
+An algorithm may require to remove items or update the sorting order. These operations can be expensive as they require to search the item to remove or replace (O(n)). You can solve this problem with some additional book keeping, using the "onMove" callback.
+This function can be passed to the contructor (as second argument) and is called every time an item moves in the heap.
+```js
+var itemPos = {};
+var heap = new Heap(undefined, function (item, previousPos, nextPos) {
+  itemPos[item.id] = nextPos;
+});
+```
+Using this you can easily remove or replace an item in O(log n):
+```js
+// removing item "A"
+heap.removeIndex(itemPos.A);
+
+// replace item "A"
+heap.removeIndex(itemPos.A, newItem);
+```
+
 min-max-heap
 ============
 This data structure implements the same features of the heap (with the same asymptotic running time), but it also allow to pop maximum values in the same way.
@@ -133,6 +152,7 @@ and find:
 item.find(); // almost Θ(1) (grows very slowly)
 ```
 The find returns the element "leader". The important part is that 2 elements with the same leader belongs to the same group.
+You can retrieve the original value with "item.data".
 
 lru-cache
 =========
