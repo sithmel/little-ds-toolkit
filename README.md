@@ -86,7 +86,7 @@ An algorithm may require to remove items or update the sorting order. These oper
 This function can be passed to the contructor (as second argument) and is called every time an item moves in the heap.
 ```js
 var itemPos = {};
-var heap = new Heap(undefined, function (item, previousPos, nextPos) {
+var heap = new Heap(undefined, function (item, nextPos, previousPos) {
   itemPos[item.id] = nextPos;
 });
 ```
