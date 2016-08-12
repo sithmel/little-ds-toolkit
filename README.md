@@ -23,13 +23,7 @@ var heap = new Heap();
 The constructor function can take as argument the comparator used to internally sort the items (just like Array.prototype.sort):
 ```js
 var heap = new Heap(function (a, b) {
-  if (a.value < b.value) {
-    return 1;
-  } esle if (a.value > b.value) {
-    return -1;
-  } else {
-    return 0;
-  }
+  return a.value - b.value;
 });
 ```
 You can add items:
@@ -96,7 +90,7 @@ Using this you can easily remove or replace an item in O(log n):
 heap.removeIndex(itemPos.A);
 
 // replace item "A"
-heap.removeIndex(itemPos.A, newItem);
+heap.replaceIndex(itemPos.A, newItem);
 ```
 
 min-max-heap
