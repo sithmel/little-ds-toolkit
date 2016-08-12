@@ -226,7 +226,7 @@ describe('heap', function () {
   describe('onMove', function () {
     it('must keep the positions updated', function () {
       var positions = {};
-      var h = new Heap(undefined, function (item, index) {
+      var h = new Heap(undefined, function (item, index, previousIndex) {
         positions[item] = index;
       });
       h.pushAll([4, 3, 2, 1]);
