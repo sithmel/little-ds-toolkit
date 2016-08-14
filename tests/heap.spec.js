@@ -237,7 +237,7 @@ describe('heap', function () {
       assert.deepEqual(positions, {0: 0, 1: 1, 3: 2, 4: 3, 2: 4});
       assert.equal(h.pop(), 0);
       assert.deepEqual(h.data, [1, 2, 3, 4]);
-      assert.deepEqual(positions, {0: 0, 1: 0, 2: 1, 3: 2, 4: 3});
+      assert.deepEqual(positions, {0: undefined, 1: 0, 2: 1, 3: 2, 4: 3});
     });
   });
 
