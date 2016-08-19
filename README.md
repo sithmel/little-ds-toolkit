@@ -139,14 +139,21 @@ var item = new UnionFind(value);
 ```
 It has only two methods. Union:
 ```js
-item.union(item2); // almost Θ(1) (grows very slowly)
+item.union(item2); // almost O(1) (grows very slowly)
 ```
 and find:
 ```js
-item.find(); // almost Θ(1) (grows very slowly)
+item.find(); // almost O(1) (grows very slowly)
 ```
-The find returns the element "leader". The important part is that 2 elements with the same leader belongs to the same group.
+Both "find" and "union" return the "leader" element. The important part is that 2 elements with the same leader belong to the same set.
 You can retrieve the original value with "item.data".
+
+The object contains 2 useful helper functions "union" and "find" that runs on both UnionFind instances or other values.
+```js
+// the arguments can be any value (or a UnionFind instance)
+var leader = UnionFind.find(item);
+var leader = UnionFind.union(item1, item2);
+```
 
 lru-cache
 =========
