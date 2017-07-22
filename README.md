@@ -176,6 +176,7 @@ The options are:
 * maxSize: maximum size in byte
 * maxLen: maximum items
 * defaultTTL: default time to live. Older items are considered stale and not returned
+* onDelete: optional function, it is called when an item is removed from the cache
 
 It makes sense to use either one of maxSize or maxLen, or it is not going to behave differently from a simple object.
 You can set an item:

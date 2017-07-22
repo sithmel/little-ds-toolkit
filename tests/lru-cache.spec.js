@@ -215,6 +215,19 @@ describe('lru-cache', function () {
       assert.equal(cache._cache['key2'], cache.tail);
       assert.equal(cache._cache['key3'], cache.head);
     });
+
+    it('must call onDelete', function () {
+      var called = 0;
+      var cache = new Cache({onDelete: function (item) {
+        assert.equal(item.key, 'key1');
+        assert.equal(item.value, 'value1');
+        called++;
+      }, maxLen: 1});
+      cache.set('key1', 'value1');
+      cache.set('key2', 'value2');
+
+      assert.equal(called, 1);
+    });
   });
 
   describe('maxSize', function () {
