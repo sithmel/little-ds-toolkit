@@ -155,9 +155,10 @@ var leader = UnionFind.find(item);
 var leader = UnionFind.union(item1, item2);
 ```
 
-lru-cache
-=========
+lru-cache (deprecated)
+======================
 This data structure is a key value cache. The least used items are purged from the cache when it reaches its maximum size (or length).
+If ES2015 Map are available this can use anything as "key". For old js it only supports strings.
 
 You can import it with:
 ```js
