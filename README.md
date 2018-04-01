@@ -155,8 +155,8 @@ var leader = UnionFind.find(item);
 var leader = UnionFind.union(item1, item2);
 ```
 
-lru-cache (deprecated)
-======================
+lru-cache
+=========
 This data structure is a key value cache. The least used items are purged from the cache when it reaches its maximum size (or length).
 If ES2015 Map are available this can use anything as "key". For old js it only supports strings.
 
@@ -174,12 +174,14 @@ var cache = new LRUCache(options);
 ```
 The options are:
 
-* maxSize: maximum size in byte
 * maxLen: maximum items
 * defaultTTL: default time to live. Older items are considered stale and not returned
 * onDelete: optional function, it is called when an item is removed from the cache
 
-It makes sense to use either one of maxSize or maxLen, or it is not going to behave differently from a simple object.
+If maxLen is not set that would be equal Infinity, in this way it is going to behave just like a simple map (please set one!).
+
+Stale items are not removed from the cache, they are not returned and they should go towards the end of the queue, and therefore be purged by the LRU algorithm.
+
 You can set an item:
 ```js
 cache.set(key, value, ttl); // the time to live is optional Θ(1)
@@ -203,4 +205,3 @@ cache.has(key); // Θ(1)
 ```
 It returns a boolean.
 cache.len is an attribute containing the number of items.
-cache.size contains the used memory (in bytes). This is only used when you set a "maxSize".

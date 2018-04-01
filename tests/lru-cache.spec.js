@@ -7,24 +7,18 @@ describe('lru-cache', function () {
     it('must init default values', function () {
       var cache = new Cache()
       assert.equal(cache.len, 0)
-      assert.equal(cache.size, 0)
-      assert.isUndefined(cache.maxSize)
-      assert.isUndefined(cache.maxLen)
+      assert.equal(cache.maxLen, Infinity)
       assert.isUndefined(cache.defaultTTL)
     })
     it('must init maxlen', function () {
       var cache = new Cache(5)
       assert.equal(cache.len, 0)
-      assert.equal(cache.size, 0)
-      assert.isUndefined(cache.maxSize)
       assert.equal(cache.maxLen, 5)
       assert.isUndefined(cache.defaultTTL)
     })
     it('must init opts obj', function () {
       var cache = new Cache({maxLen: 5, maxSize: 6, defaultTTL: 10})
       assert.equal(cache.len, 0)
-      assert.equal(cache.size, 0)
-      assert.equal(cache.maxSize, 6)
       assert.equal(cache.maxLen, 5)
       assert.equal(cache.defaultTTL, 10)
     })
@@ -221,36 +215,6 @@ describe('lru-cache', function () {
       cache.set('key2', 'value2')
 
       assert.equal(called, 1)
-    })
-  })
-
-  describe('maxSize', function () {
-    it('must throws when one iten does not fit', function () {
-      var cache = new Cache({maxSize: 10})
-      assert.throws(function () {
-        cache.set('key1', 'value1')
-      }, 'Object doesn\'t fit the cache: 12')
-    })
-    it('must fit a certain number of bytes', function () {
-      var cache = new Cache({maxSize: 12})
-      cache.set('key1', 'value1')
-      assert.equal(cache.size, 12)
-    })
-    it('must purge 1 item', function () {
-      var cache = new Cache({maxSize: 20})
-      cache.set('key1', '12345')
-      cache.set('key2', '67890')
-      cache.set('key3', '54321')
-      assert.equal(cache.size, 20)
-      assert.equal(cache.len, 2)
-    })
-    it('must purge 2 items', function () {
-      var cache = new Cache({maxSize: 20})
-      cache.set('key1', '12345')
-      cache.set('key2', '67890')
-      cache.set('key3', '543210')
-      assert.equal(cache.size, 12)
-      assert.equal(cache.len, 1)
     })
   })
 
