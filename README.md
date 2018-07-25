@@ -66,13 +66,15 @@ You can get the length of the heap with:
 ```js
 heap.size(); // Θ(1)
 ```
-There "pushAll" and "popAll" methods are shortcuts to insert an array of items in the heap, or retrieving them. Combined together the can be used to build the heapsort sorting algorithm:
+With buildHeap you can populate the heap with the values in an array (it resets the heap). It is very efficient, only O(n). The array used as argument will be mutated!
+"popAll" is a utility method to return all items in the heap. These two methods, combined together the can be used to build the heapsort sorting algorithm:
 ```js
 var heap = new Heap();
-heap.pushAll(unsorted_array);
-heap.popAll(); // returns a sorted array
+heap.buildHeap(unsorted_array); // O(n)
+heap.popAll(); // returns a sorted array O(nlogn)
 ```
 The "toArray" method returns the inner array representation (partially sorted).
+
 
 Advanced features: updating item order and removing items
 ---------------------------------------------------------
@@ -120,6 +122,7 @@ Here is a list of the methods:
 * size: returns the number of items stored O(1)
 * remove: remove an item from the heap O(n)
 * toArray: return a partially sorted array O(1)
+* buildHeap: build the heap starting with an array O(n)
 
 union-find
 ==========

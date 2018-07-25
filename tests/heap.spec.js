@@ -221,6 +221,15 @@ describe('heap', function () {
     })
   })
 
+  describe('buildHeap', function () {
+    it('must push an array', function () {
+      var h = new Heap()
+      h.buildHeap([4, 3, 2, 1])
+      assert.deepEqual(h.data, [1, 4, 2, 3])
+      assert.deepEqual(h.popAll(), [1, 2, 3, 4])
+    })
+  })
+
   describe('onMove', function () {
     it('must keep the positions updated', function () {
       var positions = {}
